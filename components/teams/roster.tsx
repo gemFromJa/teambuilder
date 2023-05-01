@@ -32,7 +32,7 @@ export default function Roseter({
                 .fill(null)
                 .map((_, i) => (
                     <div
-                        className="min-h-[100%] w-[100%] max-w-[800px] mx-auto px-[20px] py-3 bg-white"
+                        className="min-h-[100%] w-[100%] max-w-[800px] my-3 bg-white"
                         key={`field_${i}`}
                     >
                         <section className="mb-4 w-[100%] max-w-[752px] bg-field-color">
