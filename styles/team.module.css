@@ -1,0 +1,87 @@
+/** team input text */
+.teamContainer {
+    width: 200px;
+}
+
+.teamGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.inputRow {
+    margin: 4px;
+    display: flex;
+}
+
+.input {
+    display: inline-block;
+    border-radius: 4px;
+    padding: 4px 8px;
+    border-style: solid;
+    margin-right: 24px;
+}
+
+/** drop down color */
+.colorDropdown {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(auto, 0.5fr) 1fr;
+    align-items: center;
+    width: 100px;
+    cursor: pointer !important;
+}
+
+.availableColors {
+    position: absolute;
+    top: 100%;
+    background-color: #fff;
+    padding: 8px 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.open .availableColors {
+    display: block;
+}
+
+.closed .availableColors {
+    display: none;
+}
+
+.chosenColorName {
+    display: block;
+}
+
+.colorRow {
+    display: grid;
+    grid-template-columns: minmax(auto, 0.5fr) 1fr;
+    align-items: center;
+}
+
+.colorPreview {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Team Buttom */
+.newTeam {
+    cursor: pointer;
+    padding: 8px 12px;
+    box-shadow: 0 0 5px #202124;
+    color: #202124;
+    border-radius: 4px;
+    width: 100px;
+    background-color: #fff;
+}
+
+.newteam:hover {
+    background-color: #d3d3d3;
+}
+
+.newTeam:disabled {
+    cursor: not-allowed;
+    color: #7b7b7b;
+    background-color: #bababa;
+}
