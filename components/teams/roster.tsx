@@ -31,7 +31,10 @@ export default function Roseter({
             {Array(Math.ceil(teams.length / 2))
                 .fill(null)
                 .map((_, i) => (
-                    <div className="min-h-[100%] w-[100%] max-w-[800px] mx-auto px-[20px] py-3 bg-white">
+                    <div
+                        className="min-h-[100%] w-[100%] max-w-[800px] mx-auto px-[20px] py-3 bg-white"
+                        key={`field_${i}`}
+                    >
                         <section className="mb-4 w-[100%] max-w-[752px] bg-field-color">
                             <main className="h-[880px] p-10">
                                 <Half
@@ -144,6 +147,7 @@ const TeamLayout = ({
             {renderArray.map((playerRow, i) => {
                 return (
                     <Segment
+                        key={`player_row${i}`}
                         color={color}
                         height={`${rowHeight}%`}
                         players={playerRow}
