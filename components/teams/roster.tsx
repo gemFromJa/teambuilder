@@ -248,22 +248,26 @@ const Segment = ({
                                     100 / (players.length || 1)
                                 )}%`,
                             }}
-                            className={`inline-block my-0 mx-auto ${
-                                isSelecting &&
-                                isCurrentSelectedPlayer(player.index) === false
-                                    ? "opacity-50"
-                                    : "opacity-100"
-                            }`}
-                            onClick={() => onSelectPlayer(player.index)}
+                            className="flex items-center justify-center"
                         >
-                            <Image
-                                src={"/plain_shirt.svg"}
-                                alt="shirt"
-                                width={42}
-                                height={32}
-                                className="mx-auto my-0 cursor-pointer"
-                            />
-                            {/* ) ||
+                            <div
+                                className={`inline-block flex-grow-0 my-0 mx-auto ${
+                                    isSelecting &&
+                                    isCurrentSelectedPlayer(player.index) ===
+                                        false
+                                        ? "opacity-50"
+                                        : "opacity-100"
+                                }`}
+                                onClick={() => onSelectPlayer(player.index)}
+                            >
+                                <Image
+                                    src={"/plain_shirt.svg"}
+                                    alt="shirt"
+                                    width={42}
+                                    height={32}
+                                    className="mx-auto my-0 cursor-pointer"
+                                />
+                                {/* ) ||
                             <div
                                 style={{
                                     background: color,
@@ -280,8 +284,9 @@ const Segment = ({
                                     {idx + 1}
                                 </div>
                             </div> */}
-                            <div className="text-center capitalize mt-1 text-white">
-                                {player.name}
+                                <div className="text-center capitalize mt-1 text-white">
+                                    {player.name}
+                                </div>
                             </div>
                         </div>
                     );
