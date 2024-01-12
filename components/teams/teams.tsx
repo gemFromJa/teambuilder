@@ -50,6 +50,7 @@ export default function Teams({
                     color: availableColors[
                         randomInt(0, availableColors.length - 1)
                     ],
+                    players: [],
                 } as ITeam,
             ]);
         } else {
@@ -67,18 +68,18 @@ export default function Teams({
 
     return (
         <div>
-            <h3 className="text-lg font-semibold">Teams</h3>
+            <h3 className="text-2xl font-semibold mb-4">Teams</h3>
             <div className="mb-4 grid grid-cols-[repeat(auto-fit,minmax(200px,auto))] gap-6">
                 {teams.map((team, idx) => (
                     <div key={`team_${idx}`} className={` w-[100%] mb-2`}>
-                        <div className={`flex justify-between w-[100%]`}>
+                        <div className={`flex justify-between w-[100%] mb-1`}>
                             <label>Team Info</label>
                             <div
                                 aria-disabled={teams.length <= 2}
                                 onClick={() =>
                                     teams.length > 2 && removeTeam(idx)
                                 }
-                                className="cursor-pointer mx-4"
+                                className="cursor-pointer mx-4 h-full"
                             >
                                 <img
                                     className="h-[16px]"
@@ -87,16 +88,6 @@ export default function Teams({
                             </div>
                         </div>
                         <div className={`flex gap-3`}>
-                            <input
-                                className={`px-3 flex-1 border-2 drop-shadow-sm rounded`}
-                                value={team.name}
-                                onChange={(e) => {
-                                    updateTeams({
-                                        index: idx,
-                                        name: e.target.value,
-                                    });
-                                }}
-                            />
                             <Dropdown
                                 selectedColor={team.color as Color}
                                 availableColors={availableColors}
@@ -106,6 +97,16 @@ export default function Teams({
                                         color: color,
                                     })
                                 }
+                            />
+                            <input
+                                className={`px-3 py-1 flex-1 border-2 drop-shadow-sm rounded`}
+                                value={team.name}
+                                onChange={(e) => {
+                                    updateTeams({
+                                        index: idx,
+                                        name: e.target.value,
+                                    });
+                                }}
                             />
                         </div>
                     </div>
@@ -141,14 +142,14 @@ const Dropdown = ({
             )}
             onClick={() => setOpen(!open)}
         >
-            <div className="flex gap-3 items-center border-2 w-[87px] px-3 py-2 cursor-pointer">
+            <div className="h-full flex gap-3 items-center border-2 max-w-[87px] px-3 py-2 cursor-pointer">
                 <ColorPreview color={selectedColor as Color} />
-                <label className={`cursor-pointer`}>
+                <label className={`cursor-pointer hidden sm:block`}>
                     {selectedColor ? selectedColor : "color drop down"}
                 </label>
             </div>
             <div
-                className={`absolute top-[100%] bg-white px-3 py-2 shadow-lg z-20 ${
+                className={`absolute top-[100%] left-0 bg-white px-3 py-2 shadow-lg z-20 ${
                     open ? "block" : "hidden"
                 }`}
             >

@@ -1,4 +1,3 @@
-import { IPlayer as IPlayer } from "@/types";
 import Team from "./Team";
 import Player from "./Player";
 
@@ -25,32 +24,6 @@ export default function assignPlayersToTeams(
     });
 
     return teams;
-
-    // const costMatrix: number[][] = players.map((player: Player) => {
-    //     return new Array(numTeams).fill(0).map((_, teamIndex) => {
-    //         const cost = Object.keys(weights).reduce((sum, curr) => {
-    //             return (
-    //                 sum +
-    //                 weights[curr as keyof typeof weights] *
-    //                     (player?.[curr as keyof typeof weights] || 0)
-    //             );
-    //         }, 0);
-
-    //         return cost * (teamIndex + 1);
-    //     });
-    // });
-
-    // const assignments = calculateTeamWeights(costMatrix);
-    // console.log("Ourr", assignments);
-
-    // const teams: Team[] = new Array(numTeams).fill(null).map(() => new Team());
-
-    // for (let i = 0; i < assignments.length; i++) {
-    //     const teamIndex = assignments[i];
-    //     teams[teamIndex]?.addPlayer(players[i]);
-    // }
-
-    // return teams;
 }
 
 export const assignPlayersToTeamsRandom = (

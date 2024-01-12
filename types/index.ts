@@ -29,4 +29,5 @@ export type Color = (typeof colors)[number];
 export interface ITeam {
     name: string;
     color?: Color;
+    players: IPlayer[];
 }
