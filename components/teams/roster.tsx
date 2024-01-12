@@ -261,29 +261,12 @@ const Segment = ({
                                 onClick={() => onSelectPlayer(player.index)}
                             >
                                 <Image
-                                    src={"/plain_shirt.svg"}
+                                    src={`/plain_shirt_${color}.svg`}
                                     alt="shirt"
                                     width={42}
                                     height={32}
                                     className="mx-auto my-0 cursor-pointer"
                                 />
-                                {/* ) ||
-                            <div
-                                style={{
-                                    background: color,
-                                }}
-                                className={`rounded-full flex items-center justify-center h-[32px] w-[32px] border-2 border-white mx-auto my-0`}
-                            >
-                                <div
-                                    className={`font-bold ${
-                                        color === "white"
-                                            ? "text-black"
-                                            : "text-white"
-                                    }`}
-                                >
-                                    {idx + 1}
-                                </div>
-                            </div> */}
                                 <div className="text-center capitalize mt-1 text-white">
                                     {player.name}
                                 </div>
