@@ -109,12 +109,13 @@ const TeamLayout = ({
         team: { teams, setTeams },
     } = useContext(AppContext);
     // sort array most defensive first
-    let sortedTeam = team
-        .map((player, i) => ({ ...player, index: i }))
-        ./* [...team]. */ sort((a, b) => a.defending - b.defending);
+
+    let sortedTeam = [...team.map((player, i) => ({ ...player, index: i }))];
+
+    // sortedTeam.sort((a, b) => a.defending - b.defending);
 
     if (reverse) {
-        sortedTeam.reverse();
+        // sortedTeam.reverse();
     }
 
     // goalkeeper
@@ -148,11 +149,9 @@ const TeamLayout = ({
         teamFormation.reverse();
     }
 
-    const onSelectPlayer = (row: number, player: number) => {
+    const onSelectPlayer = (row: number, playerIndex: number) => {
         const _teams = [...teams];
-
         const [selectedTeamIndex, selectedPlayerIndex] = selectedPlayer;
-        const playerIndex = PERSON_PER_ROW * row + player;
 
         if (
             teamIndex === selectedTeamIndex &&
@@ -242,7 +241,7 @@ const Segment = ({
                 {players?.map((player, idx) => {
                     return (
                         <div
-                            key={`half__${idx}`}
+                            key={`p_half__${idx}`}
                             style={{
                                 width: `${Math.floor(
                                     100 / (players.length || 1)
@@ -263,8 +262,8 @@ const Segment = ({
                                 <Image
                                     src={`/plain_shirt_${color}.svg`}
                                     alt="shirt"
-                                    width={42}
-                                    height={32}
+                                    width={38}
+                                    height={28}
                                     className="mx-auto my-0 cursor-pointer"
                                 />
                                 <div className="text-center capitalize mt-1 text-white">
