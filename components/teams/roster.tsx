@@ -248,7 +248,7 @@ const Segment = ({
                                     100 / (players.length || 1)
                                 )}%`,
                             }}
-                            className="flex items-center justify-center"
+                            className="inline-flex items-center justify-center my-0 mx-auto"
                         >
                             <div
                                 className={`inline-block flex-grow-0 my-0 mx-auto ${
