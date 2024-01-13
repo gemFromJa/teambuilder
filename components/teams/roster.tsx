@@ -110,12 +110,12 @@ const TeamLayout = ({
     } = useContext(AppContext);
     // sort array most defensive first
 
-    let sortedTeam = [...team.map((player, i) => ({ ...player, index: i }))];
-
-    // sortedTeam.sort((a, b) => a.defending - b.defending);
+    let sortedTeam = team
+        .map((player, i) => ({ ...player, index: i }))
+        .sort((a, b) => a.defending - b.defending);
 
     if (reverse) {
-        // sortedTeam.reverse();
+        sortedTeam.reverse();
     }
 
     // goalkeeper
