@@ -14,9 +14,7 @@ export default function Game() {
             <Head>
                 <title>Create Your Teams</title>
             </Head>
-            <div
-                className={`max-w-[800px] h-[100vh] mx-auto bg-white px-4 py-6`}
-            >
+            <div className={`max-w-[800px]  mx-auto bg-white px-4 py-6`}>
                 {screen === SCREEN_TEAM ? (
                     <AddTeamPage
                         onClick={() => {

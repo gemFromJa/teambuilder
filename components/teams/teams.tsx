@@ -69,9 +69,9 @@ export default function Teams({
     return (
         <div>
             <h3 className="text-2xl font-semibold mb-4">Teams</h3>
-            <div className="mb-4 grid grid-cols-[repeat(auto-fit,minmax(200px,auto))] gap-6">
+            <div className="mb-4 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6">
                 {teams.map((team, idx) => (
-                    <div key={`team_${idx}`} className={` w-[100%] mb-2`}>
+                    <div key={`team_${idx}`} className={`mb-2`}>
                         <div className={`flex justify-between w-[100%] mb-1`}>
                             <label>Team Info</label>
                             <div

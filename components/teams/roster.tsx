@@ -42,9 +42,11 @@ export default function Roster({ onBack }: { onBack: () => void }) {
                     Back
                 </button>
                 {/* <Dropdown /> */}
-                <select>
+                <select
+                    onChange={(i) => setSelectedTeam(Number(i.target.value))}
+                >
                     {teams.map((team, i) => (
-                        <option key={i} onClick={() => setSelectedTeam(i)}>
+                        <option key={i} value={i} className="cursor-pointer">
                             {team.name}
                         </option>
                     ))}
@@ -54,9 +56,9 @@ export default function Roster({ onBack }: { onBack: () => void }) {
                 </button>
             </div>
 
-            <div className="flex-grow min-h-[60%] w-[100%] max-w-[800px] my-3 bg-white">
+            <div className="flex-grow h-[100vh] w-[100%] max-w-[800px] my-3 bg-white">
                 <section className="mb-4 h-[100%] w-[100%] max-w-[752px] bg-field-color">
-                    <main className="h-[100%] py-10 px-4">
+                    <main className="h-[100%] py-6 px-4">
                         <Half
                             teamName={team1}
                             players={team1.players}
@@ -74,7 +76,10 @@ export default function Roster({ onBack }: { onBack: () => void }) {
                 <div>
                     {teams.map((team, i) => {
                         return (
-                            <div key={`team_${i}`}>
+                            <div
+                                key={`team_${i}`}
+                                className="text-xs sm:text-sm"
+                            >
                                 <b className={"capitalize"}>{team.name}</b>:
                                 <span>
                                     {team.players.reduce(
@@ -262,11 +267,11 @@ const Segment = ({
                                 <Image
                                     src={`/plain_shirt_${color}.svg`}
                                     alt="shirt"
-                                    width={38}
-                                    height={28}
-                                    className="mx-auto my-0 cursor-pointer"
+                                    width={32}
+                                    height={24}
+                                    className="mx-auto my-0 cursor-pointer h-[24px] w-[28px] sm:h-[48px] sm:w-[22px]"
                                 />
-                                <div className="text-center capitalize mt-1 text-white">
+                                <div className="text-center capitalize mt-1 text-white text-xs sm:text-base">
                                     {player.name}
                                 </div>
                             </div>
