@@ -152,7 +152,7 @@ const Dropdown = ({
         >
             <div className="h-full flex gap-3 items-center border-2 max-w-[87px] px-3 py-2 cursor-pointer">
                 <ColorPreview color={selectedColor as Color} />
-                <label className={`cursor-pointer hidden sm:block`}>
+                <label className={`cursor-pointer hidden sm:block text-sm`}>
                     {selectedColor ? selectedColor : "color drop down"}
                 </label>
             </div>
@@ -168,7 +168,7 @@ const Dropdown = ({
                         className={`grid grid-cols-[10px_auto] items-center gap-2`}
                     >
                         <ColorPreview color={color} />
-                        <span className="">{color}</span>
+                        <span className="t">{color}</span>
                     </div>
                 ))}
             </div>
