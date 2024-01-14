@@ -69,7 +69,7 @@ export default function Teams({
     return (
         <div>
             <h3 className="text-2xl font-semibold mb-4">Teams</h3>
-            <div className="mb-4 grid box-border justify-between grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-6">
+            <div className="mb-4 grid box-border justify-between grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-x-8 gap-y-3">
                 {teams.map((team, idx) => (
                     <div
                         key={`team_${idx}`}
