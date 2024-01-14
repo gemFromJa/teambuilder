@@ -2,7 +2,6 @@ import React, { ReactElement, useMemo, useState } from "react";
 import { Color, colors, ITeam } from "@/types";
 import { randomInt } from "@/utils/numbers";
 import clsx from "clsx";
-
 import styles from "@/styles/team.module.css";
 import { twMerge } from "tailwind-merge";
 
