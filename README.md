@@ -1,7 +1,7 @@
 >This is a simple app to organize teams for scrimmage football(soccer) games.
 
 
-This idea arose after the disorganization and frustration in a football group I'm apart of became unbearable. With the app you can great up to 6 teams and organize the resultant teams.
+This idea arose after the disorganization and frustration in a football group I'm apart of became unbearable. With the app you can create up to 6 teams and organize the resultant teams.
 
 
 ## Hosted Version
