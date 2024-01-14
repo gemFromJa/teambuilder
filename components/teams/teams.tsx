@@ -69,17 +69,22 @@ export default function Teams({
     return (
         <div>
             <h3 className="text-2xl font-semibold mb-4">Teams</h3>
-            <div className="mb-4 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6">
+            <div className="mb-4 grid box-border justify-between grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-6">
                 {teams.map((team, idx) => (
-                    <div key={`team_${idx}`} className={`mb-2`}>
-                        <div className={`flex justify-between w-[100%] mb-1`}>
+                    <div
+                        key={`team_${idx}`}
+                        className={`self-stretch mb-2 w-full`}
+                    >
+                        <div
+                            className={`flex justify-between min-w-[50%] w-[100%] mb-1`}
+                        >
                             <label>Team Info</label>
                             <div
                                 aria-disabled={teams.length <= 2}
                                 onClick={() =>
                                     teams.length > 2 && removeTeam(idx)
                                 }
-                                className="cursor-pointer mx-4 h-full"
+                                className="cursor-pointer ml-4 h-full"
                             >
                                 <img
                                     className="h-[16px]"
@@ -98,16 +103,19 @@ export default function Teams({
                                     })
                                 }
                             />
-                            <input
-                                className={`px-3 py-1 flex-1 border-2 drop-shadow-sm rounded`}
-                                value={team.name}
-                                onChange={(e) => {
-                                    updateTeams({
-                                        index: idx,
-                                        name: e.target.value,
-                                    });
-                                }}
-                            />
+                            <div className="flex-grow">
+                                <input
+                                    className={`px-3 py-1 h-full w-full flex-1 border-2 drop-shadow-sm rounded`}
+                                    width={30}
+                                    value={team.name}
+                                    onChange={(e) => {
+                                        updateTeams({
+                                            index: idx,
+                                            name: e.target.value,
+                                        });
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
                 ))}
