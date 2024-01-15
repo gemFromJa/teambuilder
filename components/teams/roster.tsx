@@ -37,15 +37,6 @@ export default function Roster({ onBack }: { onBack: () => void }) {
                     selectedTeam={selectedTeam}
                     onSelect={setSelectedTeam}
                 />
-                {/* <select
-                    onChange={(i) => setSelectedTeam(Number(i.target.value))}
-                >
-                    {teams.map((team, i) => (
-                        <option key={i} value={i} className="cursor-pointer">
-                            {team.name}
-                        </option>
-                    ))}
-                </select> */}
                 <button
                     onClick={() => {}}
                     disabled
