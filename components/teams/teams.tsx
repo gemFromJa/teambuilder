@@ -92,7 +92,7 @@ export default function Teams({
                             </div>
                         </div>
                         <div className={`flex gap-3`}>
-                            <Dropdown
+                            <ColorSelectorDropdown
                                 selectedColor={team.color as Color}
                                 availableColors={availableColors}
                                 onSelect={(color) =>
@@ -131,7 +131,7 @@ export default function Teams({
     );
 }
 
-const Dropdown = ({
+const ColorSelectorDropdown = ({
     availableColors,
     selectedColor,
     onSelect,
@@ -151,7 +151,9 @@ const Dropdown = ({
         >
             <div className="h-full flex gap-3 items-center border-2 max-w-[87px] px-3 py-2 cursor-pointer">
                 <ColorPreview color={selectedColor as Color} />
-                <label className={`cursor-pointer hidden sm:block text-sm`}>
+                <label
+                    className={`cursor-pointer hidden sm:block text-sm leading-none`}
+                >
                     {selectedColor ? selectedColor : "color drop down"}
                 </label>
             </div>

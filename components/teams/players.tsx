@@ -52,6 +52,7 @@ export default function Players() {
             <p className="mb-4 text-xs">
                 Ratings are: 1 - below average 2 - average 3 - real good
             </p>
+            {/* Add ploating auto-complete modal <looks more like tooltip */}
             <textarea
                 placeholder={labels}
                 className="block border-2 rounded resize-none w-[100%] min-h-[300px] px-2 py-1 placeholder:text-sm"

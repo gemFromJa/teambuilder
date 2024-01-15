@@ -3,46 +3,41 @@ import { Color, IPlayer, ITeam } from "@/types";
 import { ColorPreview } from "./teams";
 import { AppContext } from "@/store";
 import Image from "next/image";
+import clsx from "clsx";
 
 export default function Roster({ onBack }: { onBack: () => void }) {
     const {
-        team: { teams, setTeams },
+        team: { teams, assignTeams },
         playersState: { players },
     } = useContext(AppContext);
     const [selectedTeam, setSelectedTeam] = useState(0);
 
     const team1 = teams[selectedTeam];
-    const team2 = teams[selectedTeam + 1];
+    const team2 = teams[(selectedTeam + 1) % teams.length];
 
     useEffect(() => {
-        let team = 0;
-        const pTeams: IPlayer[][] = Array(teams.length)
-            .fill(null)
-            .map(() => []);
-        // generate teams
-        players.forEach((_, id) => {
-            pTeams[team].push(players[id]);
-            team = (team + 1) % teams.length;
-        });
-
-        setTeams(
-            pTeams.map((team, i) => {
-                return {
-                    ...teams[i],
-                    players: team,
-                };
-            })
-        );
+        assignTeams(players);
     }, []);
 
     return (
         <div className="h-full flex-col flex">
-            <div className="flex justify-between">
-                <button onClick={onBack} className="">
-                    Back
+            <div className="flex justify-between mb-2">
+                <button onClick={onBack} className="text-dark-gray flex">
+                    <Image
+                        src={"/images/left.png"}
+                        width={24}
+                        height={24}
+                        alt="back"
+                    />
+                    <span className="ml-1 self-center">Back</span>
                 </button>
                 {/* <Dropdown /> */}
-                <select
+                <TeamDropdown
+                    teams={teams}
+                    selectedTeam={selectedTeam}
+                    onSelect={setSelectedTeam}
+                />
+                {/* <select
                     onChange={(i) => setSelectedTeam(Number(i.target.value))}
                 >
                     {teams.map((team, i) => (
@@ -50,14 +45,18 @@ export default function Roster({ onBack }: { onBack: () => void }) {
                             {team.name}
                         </option>
                     ))}
-                </select>
-                <button onClick={() => {}} disabled>
-                    done
+                </select> */}
+                <button
+                    onClick={() => {}}
+                    disabled
+                    className="text-button-gray"
+                >
+                    Done
                 </button>
             </div>
 
-            <div className="flex-grow h-[100vh] w-[100%] max-w-[800px] my-3 bg-white">
-                <section className="mb-4 h-[100%] w-[100%] max-w-[752px] bg-field-color">
+            <div className="flex-grow w-[100%] max-w-[800px] my-3 bg-white">
+                <section className="mb-4 h-[100vh] w-[100%] bg-field-color">
                     <main className="h-[100%] py-6 px-4">
                         <Half
                             teamName={team1}
@@ -76,11 +75,11 @@ export default function Roster({ onBack }: { onBack: () => void }) {
                 <div>
                     {teams.map((team, i) => {
                         return (
-                            <div
-                                key={`team_${i}`}
-                                className="text-xs sm:text-sm"
-                            >
-                                <b className={"capitalize"}>{team.name}</b>:
+                            <div key={`team_${i}`} className="text-base">
+                                <b className={"capitalize mr-1"}>
+                                    {team.name}:
+                                </b>
+
                                 <span>
                                     {team.players.reduce(
                                         (sum, player) =>
@@ -154,25 +153,46 @@ const TeamLayout = ({
         teamFormation.reverse();
     }
 
-    const onSelectPlayer = (row: number, playerIndex: number) => {
+    const deselectPlayer = () => {
+        setSelectedPlayer([]);
+    };
+
+    const generateTeamsWithSwap = (
+        fromPlayer: number,
+        fromTeam: number,
+        toPlayer: number,
+        toTeam: number
+    ): ITeam[] => {
         const _teams = [...teams];
+
+        let player1 = _teams[fromTeam].players[fromPlayer];
+
+        _teams[fromTeam].players[fromPlayer] = _teams[toTeam].players[toPlayer];
+
+        _teams[toTeam].players[toPlayer] = player1;
+
+        return _teams;
+    };
+
+    const onSelectPlayer = (row: number, playerIndex: number) => {
         const [selectedTeamIndex, selectedPlayerIndex] = selectedPlayer;
 
         if (
             teamIndex === selectedTeamIndex &&
             playerIndex === selectedPlayerIndex
         ) {
-            setSelectedPlayer([]);
+            // reset swap
+            deselectPlayer();
         } else if (selectedPlayer.length === 2) {
-            // switch player
-            let temp = _teams[selectedTeamIndex].players[selectedPlayerIndex];
-
-            _teams[selectedTeamIndex].players[selectedPlayerIndex] =
-                _teams[teamIndex].players[playerIndex];
-            _teams[teamIndex].players[playerIndex] = temp;
-
-            setTeams(_teams);
-            setSelectedPlayer([]);
+            setTeams(
+                generateTeamsWithSwap(
+                    selectedPlayerIndex,
+                    selectedTeamIndex,
+                    playerIndex,
+                    teamIndex
+                )
+            );
+            deselectPlayer();
         } else {
             setSelectedPlayer([teamIndex, playerIndex]);
         }
@@ -182,11 +202,11 @@ const TeamLayout = ({
         return <></>;
     }
 
-    const KeeperSegment = ({ hidden }: { hidden: boolean }) => {
-        return hidden || !keeper ? (
+    const KeeperRow = () => {
+        return !keeper ? (
             <></>
         ) : (
-            <Segment
+            <PlayersRow
                 players={keeper}
                 height={keeperHeight}
                 color={color}
@@ -195,13 +215,15 @@ const TeamLayout = ({
             />
         );
     };
+    const showKeeperTop = reverse === false;
+    const showKeeperBottom = !showKeeperTop;
 
     return (
         <>
-            <KeeperSegment hidden={reverse === true} />
+            {showKeeperTop ? <KeeperRow /> : null}
             {teamFormation.map((playerRow, i) => {
                 return (
-                    <Segment
+                    <PlayersRow
                         key={`player_row_${i}`}
                         color={color}
                         height={`${rowHeight}%`}
@@ -213,12 +235,12 @@ const TeamLayout = ({
                     />
                 );
             })}
-            <KeeperSegment hidden={reverse != true} />
+            {showKeeperBottom ? <KeeperRow /> : null}
         </>
     );
 };
 
-const Segment = ({
+const PlayersRow = ({
     players,
     height,
     color,
@@ -356,6 +378,55 @@ const Half = ({
                 </span>
             </div>
             {secondHalf && <TeamName />}
+        </div>
+    );
+};
+
+const TeamDropdown = ({
+    teams,
+    selectedTeam,
+    onSelect,
+}: {
+    teams: ITeam[];
+    onSelect: (team: number) => void;
+    selectedTeam: number;
+}) => {
+    console.log(selectedTeam);
+    const [open, setOpen] = useState(false);
+    return (
+        <div
+            className={clsx(
+                `cursor-pointer flex items-center gap-3 relative`
+                // open ? styles.open : styles.closed
+            )}
+            onClick={() => setOpen(!open)}
+        >
+            <div className="h-full flex gap-3 items-center border-b-2 px-3 py-2 cursor-pointer">
+                <label className={`cursor-pointer block text-sm leading-none`}>
+                    {teams[selectedTeam].name ?? "Team"}
+                </label>
+                <Image
+                    src={"/images/down.png"}
+                    alt="down arrow"
+                    width={12}
+                    height={12}
+                />
+            </div>
+            <div
+                className={`absolute top-[100%] w-full left-0 mt-1 bg-white shadow-lg z-20 ${
+                    open ? "block" : "hidden"
+                }`}
+            >
+                {teams.map(({ name }, key) => (
+                    <div
+                        key={`color_${key}`}
+                        onClick={() => onSelect(key)}
+                        className={`w-full px-3 py-2 hover:bg-button-gray`}
+                    >
+                        <span className="t">{name}</span>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

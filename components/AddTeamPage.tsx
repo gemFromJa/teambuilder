@@ -19,7 +19,7 @@ export default function AddTeamPage({ onClick }: { onClick: () => void }) {
                     // disabled={players.length < teams.length}
                     className={`bg-[#0c6eb9] text-white border-0`}
                     onClick={onClick}
-                    text={"Create Teams"}
+                    text={"Create Roster"}
                 />
             </div>
         </div>

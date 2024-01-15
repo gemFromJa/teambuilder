@@ -1,4 +1,5 @@
 import { Color, IPlayer, ITeam, colors } from "@/types";
+import { randomInt } from "@/utils/numbers";
 import { useState } from "react";
 
 export default function TeamState() {
@@ -20,9 +21,36 @@ export default function TeamState() {
         });
     };
 
+    const assignTeams = (players: IPlayer[]) => {
+        const _players = [...players];
+        let teamIndex = 0;
+        const resultingTeams: IPlayer[][] = Array(teams.length)
+            .fill(null)
+            .map(() => []);
+        // generate teams
+        players.forEach(() => {
+            const lastIndex = _players.length - 1;
+            const [player] = _players.splice(randomInt(0, lastIndex), 1);
+            console.log(_players, lastIndex, player);
+
+            resultingTeams[teamIndex].push(player);
+            teamIndex = (teamIndex + 1) % teams.length;
+        });
+
+        setTeams(
+            resultingTeams.map((team, i) => {
+                return {
+                    ...teams[i],
+                    players: team,
+                };
+            })
+        );
+    };
+
     return {
         teams,
         addTeam,
+        assignTeams,
         setTeams,
         addPlayerToTeam,
     };

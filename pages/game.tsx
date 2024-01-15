@@ -12,7 +12,7 @@ export default function Game() {
     return (
         <>
             <Head>
-                <title>Create Your Teams</title>
+                <title>SMnr - Create Teamsheet</title>
             </Head>
             <div className={`max-w-[800px]  mx-auto bg-white px-4 py-6`}>
                 {screen === SCREEN_TEAM ? (
