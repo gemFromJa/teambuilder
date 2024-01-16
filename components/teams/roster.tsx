@@ -1,11 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Color, IPlayer, ITeam } from "@/types";
-import { ColorPreview } from "./teams";
 import { AppContext } from "@/store";
+import { useScreenshot, createFileName } from "use-react-screenshot";
+import { Button, ColorPreview } from "./teams";
 import Image from "next/image";
 import clsx from "clsx";
 
 export default function Roster({ onBack }: { onBack: () => void }) {
+    const field = useRef(null);
+    const [screenshot, takeScreenshot] = useScreenshot({
+        type: "image/jpeg",
+        quality: 1.0,
+    });
     const {
         team: { teams, assignTeams },
         playersState: { players },
@@ -15,13 +21,20 @@ export default function Roster({ onBack }: { onBack: () => void }) {
     const team1 = teams[selectedTeam];
     const team2 = teams[(selectedTeam + 1) % teams.length];
 
+    const download = (image: any, { name = "img", extension = "jpg" } = {}) => {
+        const a = document.createElement("a");
+        a.href = image;
+        a.download = createFileName(extension, name);
+        a.click();
+    };
+
     useEffect(() => {
         assignTeams(players);
     }, []);
 
     return (
         <div className="h-full flex-col flex">
-            <div className="flex justify-between mb-2">
+            <div className="flex justify-between mb-4">
                 <button onClick={onBack} className="text-dark-gray flex">
                     <Image
                         src={"/images/left.png"}
@@ -46,8 +59,17 @@ export default function Roster({ onBack }: { onBack: () => void }) {
                 </button>
             </div>
 
+            <Button
+                className="mb-3 text-white bg-blue w-full max-w-[300px] mx-auto"
+                text={"Screenshot"}
+                onClick={() => takeScreenshot(field.current).then(download)}
+            />
+
             <div className="flex-grow w-[100%] max-w-[800px] my-3 bg-white">
-                <section className="mb-4 h-[100vh] w-[100%] bg-field-color">
+                <section
+                    ref={field}
+                    className="mb-4 h-[100vh] w-[100%] bg-field-color"
+                >
                     <main className="h-[100%] py-6 px-4">
                         <Half
                             teamName={team1}
