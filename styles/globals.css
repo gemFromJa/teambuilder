@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+   --app-highlight: #7b90a0;
+}
+
 html {
-    background-color: #f8f8f8;
-    font-family: Arial, sans-serif;
+    /* background-color: #f8f8f8; */
+    font-family: var(font-inter), Arial, sans-serif;
 }
