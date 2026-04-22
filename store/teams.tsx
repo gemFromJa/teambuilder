@@ -31,7 +31,6 @@ export default function TeamState() {
         players.forEach(() => {
             const lastIndex = _players.length - 1;
             const [player] = _players.splice(randomInt(0, lastIndex), 1);
-            console.log(_players, lastIndex, player);
 
             resultingTeams[teamIndex].push(player);
             teamIndex = (teamIndex + 1) % teams.length;
