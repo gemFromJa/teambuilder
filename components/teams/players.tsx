@@ -36,36 +36,36 @@ export default function Players() {
     } = useContext(AppContext);
     const [text, setText] = useState(() => playersTostring(players || []));
     const delayedSetPlayers = useCallback((text: string) => {
-        if (ref.current) clearTimeout(ref.current);
+      if (ref.current) clearTimeout(ref.current);
 
-        ref.current = setTimeout(() => {
-            setPlayers(calculatePlayers(text));
-        }, 1000);
+      ref.current = setTimeout(() => {
+        setPlayers(calculatePlayers(text));
+      }, 500);
     }, []);
 
     return (
-        <div>
-            <h3 className="text-xl mb-1 font-semibold">
-                Players
-                <small className="ml-1"></small>
-            </h3>
-            <p className="mb-4 text-xs">
-                Ratings are: 1 - below average 2 - average 3 - real good
-            </p>
-            {/* Add ploating auto-complete modal <looks more like tooltip */}
-            <textarea
-                placeholder={labels}
-                className="block border-2 rounded resize-none w-[100%] min-h-[300px] px-2 py-1 placeholder:text-sm"
-                value={text}
-                onChange={(e) => {
-                    setText(e.target.value);
+      <div>
+        <h3 className="text-2xl mb-1 font-semibold">
+          Players
+          <small className="ml-1"></small>
+        </h3>
+        <p className="mb-4 text-sm text-gray-400">
+          Ratings are: 1 - below average 2 - average 3 - real good
+        </p>
+        {/* Add ploating auto-complete modal <looks more like tooltip */}
+        <textarea
+          placeholder={labels}
+          className="block border-2 rounded resize-none w-[100%] leading-7 min-h-[300px] md:min-h-[400px] px-5 py-4 placeholder:text-sm focus:outline-gray-400"
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
 
-                    delayedSetPlayers(e.target.value);
-                }}
-            />
-            <div className="text-sm mt-2 mb-4">
+            delayedSetPlayers(e.target.value);
+          }}
+        />
+        {/* <div className="text-sm mt-2 mb-4">
                 {text.split("\n").filter((v) => !!v).length} added
-            </div>
-        </div>
+            </div> */}
+      </div>
     );
 }

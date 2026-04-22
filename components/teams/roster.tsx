@@ -33,81 +33,72 @@ export default function Roster({ onBack }: { onBack: () => void }) {
     }, []);
 
     return (
-        <div className="h-full flex-col flex">
-            <div className="flex justify-between mb-4">
-                <button onClick={onBack} className="text-dark-gray flex">
-                    <Image
-                        src={"/images/left.png"}
-                        width={24}
-                        height={24}
-                        alt="back"
-                    />
-                    <span className="ml-1 self-center">Back</span>
-                </button>
-                {/* <Dropdown /> */}
-                <TeamDropdown
-                    teams={teams}
-                    selectedTeam={selectedTeam}
-                    onSelect={setSelectedTeam}
-                />
-                <button
-                    onClick={() => {}}
-                    disabled
-                    className="text-button-gray"
-                >
-                    Done
-                </button>
-            </div>
-
-            <Button
-                className="mb-3 text-white bg-blue w-full max-w-[300px] mx-auto"
-                text={"Screenshot"}
-                onClick={() => takeScreenshot(field.current).then(download)}
-            />
-
-            <div className="flex-grow w-[100%] max-w-[800px] my-3 bg-white">
-                <section
-                    ref={field}
-                    className="mb-4 h-[100vh] w-[100%] bg-field-color"
-                >
-                    <main className="h-[100%] py-6 px-4">
-                        <Half
-                            teamName={team1}
-                            players={team1.players}
-                            teamIndex={selectedTeam}
-                        />
-                        <Half
-                            teamName={team2}
-                            secondHalf={true}
-                            players={team2?.players || []}
-                            teamIndex={selectedTeam + 1}
-                        />
-                    </main>
-                </section>
-
-                <div>
-                    {teams.map((team, i) => {
-                        return (
-                            <div key={`team_${i}`} className="text-base">
-                                <b className={"capitalize mr-1"}>
-                                    {team.name}:
-                                </b>
-
-                                <span>
-                                    {team.players.reduce(
-                                        (sum, player) =>
-                                            `${sum}${sum ? ", " : ""}${
-                                                player?.name
-                                            }`,
-                                        ""
-                                    )}
-                                </span>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
+      <div className="h-full flex-col flex">
+        <div className="flex justify-between mb-4 text-sm">
+          <button onClick={onBack} className="text-dark-gray flex">
+            <Image src={"/images/left.png"} width={24} height={24} alt="back" />
+            <span className="ml-1 self-center">Back</span>
+          </button>
+          {/* <Dropdown /> */}
+          <TeamDropdown
+            teams={teams}
+            selectedTeam={selectedTeam}
+            onSelect={setSelectedTeam}
+          />
+          <button
+            onClick={() => {}}
+            disabled
+            className="disabled:text-gray-200"
+          >
+            Done
+          </button>
         </div>
+
+        <Button
+          className="mb-3 text-gray-500 bg-transparent w-full max-w-[300px] mx-auto"
+          text={"Screenshot"}
+          onClick={() => takeScreenshot(field.current).then(download)}
+        />
+
+        <div className="flex-grow w-[100%] max-w-[800px] my-3 bg-white">
+          <section
+            ref={field}
+            className="mb-4 h-[100vh] md:h-[70vh] w-[100%] bg-field-color"
+          >
+            <main className="h-[100%] py-6 px-4">
+              <Half
+                teamName={team1}
+                players={team1.players}
+                teamIndex={selectedTeam}
+              />
+              <Half
+                teamName={team2}
+                secondHalf={true}
+                players={team2?.players || []}
+                teamIndex={selectedTeam + 1}
+              />
+            </main>
+          </section>
+
+          <div>
+            {teams.map((team, i) => {
+              return (
+                <div key={`team_${i}`} className="text-base">
+                  <b className={"capitalize mr-1"}>{team.name}:</b>
+
+                  <span>
+                    {team.players.reduce(
+                      (sum, player) =>
+                        `${sum}${sum ? ", " : ""}${player?.name}`,
+                      ""
+                    )}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     );
 }
 const TeamLayout = ({
@@ -396,50 +387,49 @@ const Half = ({
 };
 
 const TeamDropdown = ({
-    teams,
-    selectedTeam,
-    onSelect,
+  teams,
+  selectedTeam,
+  onSelect,
 }: {
-    teams: ITeam[];
-    onSelect: (team: number) => void;
-    selectedTeam: number;
+  teams: ITeam[];
+  onSelect: (team: number) => void;
+  selectedTeam: number;
 }) => {
-    console.log(selectedTeam);
-    const [open, setOpen] = useState(false);
-    return (
-        <div
-            className={clsx(
-                `cursor-pointer flex items-center gap-3 relative`
-                // open ? styles.open : styles.closed
-            )}
-            onClick={() => setOpen(!open)}
-        >
-            <div className="h-full flex gap-3 items-center border-b-2 px-3 py-2 cursor-pointer">
-                <label className={`cursor-pointer block text-sm leading-none`}>
-                    {teams[selectedTeam].name ?? "Team"}
-                </label>
-                <Image
-                    src={"/images/down.png"}
-                    alt="down arrow"
-                    width={12}
-                    height={12}
-                />
-            </div>
-            <div
-                className={`absolute top-[100%] w-full left-0 mt-1 bg-white shadow-lg z-20 ${
-                    open ? "block" : "hidden"
-                }`}
-            >
-                {teams.map(({ name }, key) => (
-                    <div
-                        key={`color_${key}`}
-                        onClick={() => onSelect(key)}
-                        className={`w-full px-3 py-2 hover:bg-button-gray`}
-                    >
-                        <span className="t">{name}</span>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+  const [open, setOpen] = useState(false);
+  return (
+    <div
+      className={clsx(
+        `cursor-pointer flex items-center gap-3 relative`
+        // open ? styles.open : styles.closed
+      )}
+      onClick={() => setOpen(!open)}
+    >
+      <div className="h-full flex gap-3 items-center border-b-2 px-3 py-2 cursor-pointer">
+        <label className={`cursor-pointer block text-sm leading-none`}>
+          {teams[selectedTeam].name ?? "Team"}
+        </label>
+        <Image
+          src={"/images/down.png"}
+          alt="down arrow"
+          width={12}
+          height={12}
+        />
+      </div>
+      <div
+        className={`absolute top-[100%] w-full left-0 mt-1 bg-white shadow-lg z-20 ${
+          open ? "block" : "hidden"
+        }`}
+      >
+        {teams.map(({ name }, key) => (
+          <div
+            key={`color_${key}`}
+            onClick={() => onSelect(key)}
+            className={`w-full px-3 py-2 hover:bg-button-gray`}
+          >
+            <span className="t">{name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };

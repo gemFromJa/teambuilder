@@ -5,23 +5,24 @@ import Players from "./teams/players";
 
 export default function AddTeamPage({ onClick }: { onClick: () => void }) {
     const {
-        team: { teams, setTeams },
+      team: { teams, setTeams },
+      playersState: { players },
     } = useContext(AppContext);
 
     return (
-        <div>
-            <div className="mb-5">
-                <Teams teams={teams} setTeams={setTeams} />
-            </div>
-            <Players />
-            <div className="mt-4 flex items-center justify-center">
-                <Button
-                    // disabled={players.length < teams.length}
-                    className={`bg-[#0c6eb9] text-white border-0`}
-                    onClick={onClick}
-                    text={"Create Roster"}
-                />
-            </div>
+      <div>
+        <Teams teams={teams} setTeams={setTeams} />
+        <div className="my-8 w-full border-b border-gray-100"></div>
+        <Players />
+        <div className="mt-8 flex items-center justify-between flex-wrap">
+          <div className="text-sm mt-2 mb-4">{players.length} added</div>
+          <Button
+            // disabled={players.length < teams.length}
+            className={`bg-field-color text-white border-0 w-full md:w-40 text-sm`}
+            onClick={onClick}
+            text={"Create Roster"}
+          />
         </div>
+      </div>
     );
 }
