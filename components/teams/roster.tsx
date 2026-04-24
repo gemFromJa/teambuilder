@@ -2,10 +2,14 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { Color, IPlayer, ITeam } from "@/types";
 import { AppContext } from "@/store";
 import { useScreenshot, createFileName } from "use-react-screenshot";
-import { Button, ColorPreview } from "./teams";
+import { ColorPreview } from "./teams";
 import Image from "next/image";
 import clsx from "clsx";
-import { ChevronLeftIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import {
+  ChevronLeftIcon,
+  ChevronDownIcon,
+  CameraIcon,
+} from "@heroicons/react/24/outline";
 
 export default function Roster({ onBack }: { onBack: () => void }) {
   const field = useRef(null);
@@ -34,13 +38,12 @@ export default function Roster({ onBack }: { onBack: () => void }) {
   }, []);
 
   return (
-    <div className="h-full flex-col flex">
-      <div className="flex justify-between mb-4 text-sm">
+    <div className="h-full flex-col flex gap-4">
+      <div className="flex justify-between mbd-4 text-sm">
         <button onClick={onBack} className="text-dark-gray flex items-center">
           <ChevronLeftIcon className="h-[16px] w-[16px]" />
           <span className="ml-1 self-center">Back</span>
         </button>
-        {/* <Dropdown /> */}
         <TeamDropdown
           teams={teams}
           selectedTeam={selectedTeam}
@@ -50,17 +53,16 @@ export default function Roster({ onBack }: { onBack: () => void }) {
           Done
         </button>
       </div>
-
-      <Button
-        className="mb-3 text-gray-500 bg-transparent w-full max-w-[300px] mx-auto"
-        text={"Screenshot"}
+      <div
+        className="inline-flex items-center gap-3 flex-0 mdb-3"
         onClick={() => takeScreenshot(field.current).then(download)}
-      />
-
-      <div className="flex-grow w-[100%] max-w-[800px] my-3 bg-white">
+      >
+        <CameraIcon className="h-[20px] w-[20px] text-dark-gray" />
+      </div>
+      <div className="flex-grow w-[100%] max-w-[800px] mdy-3 bg-white">
         <section
           ref={field}
-          className="mb-4 h-[100vh] md:h-[70vh] w-[100%] bg-field-color"
+          className="mb-4 h-[100vh] md:hh-[70vh] w-[100%] bg-field-color"
         >
           <main className="h-[100%] py-6 px-4">
             <Half
